@@ -63,10 +63,10 @@ fn main() {
         let mut num2 = String::new();
 
         println!("Enter the first number:");
-        io::stdin().read_line(&mut num1).expect("Failed to read the number.");
+        io::stdin().read_line(&mut num1).expect("Failed to read input.");
 
         println!("Enter the second number:");
-        io::stdin().read_line(&mut num2).expect("Failed to read the number.");
+        io::stdin().read_line(&mut num2).expect("Failed to read input.");
 
         let num1: f64 = num1.trim().parse().expect("Please type a number.");
         let num2: f64 = num2.trim().parse().expect("Please type a number.");
@@ -86,5 +86,37 @@ fn main() {
             "power" => println!("Result: {:.2}", exponentiate(num1, num2)),
             _ => println!("Invalid operation!"),
         }
+    }
+}
+
+
+fn read_number(prompt: &str) -> f64 {
+    let mut num = String::new();
+    println!("{}", prompt);
+    io::stdin().read_line(&mut num).expect("Failed to read input.");
+    num.trim().parse().expect("Please type a number.")
+}
+
+fn perform_double_input_operation(operation: &str, num1: f64, num2: f64) {
+    match operation {
+        "add" => println!("Result: {:.2}", add(num1, num2)),
+            "subtract" => println!("Result: {:.2}", subtract(num1, num2)),
+            "multiply" => println!("Result: {:.2}", multiply(num1, num2)),
+            "divide" => match divide(num1, num2) {
+                Some(result) => println!("Result: {:.2}", result),
+                None => println!("Cannot divide by zero."),
+            },
+            "percentage" => println!("Result: {:.2}", percentage(num1, num2)),
+            "power" => println!("Result: {:.2}", exponentiate(num1, num2)),
+            _ => {}
+    }
+}
+
+fn perform_single_input_operation(operation: &str, num: f64) {
+    match operation {
+        "cos" => println!("Result: {:.2}", cos(num)),
+        "sin" => println!("Result: {:.2}", sin(num)), 
+        "tan" => println!("Result: {:.2}", tan(num)),
+        _ => {}
     }
 }
