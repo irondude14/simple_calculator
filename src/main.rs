@@ -59,31 +59,17 @@ fn main() {
             break;
         }
 
-        let mut num1 = String::new();
-        let mut num2 = String::new();
-
-        println!("Enter the first number:");
-        io::stdin().read_line(&mut num1).expect("Failed to read input.");
-
-        println!("Enter the second number:");
-        io::stdin().read_line(&mut num2).expect("Failed to read input.");
-
-        let num1: f64 = num1.trim().parse().expect("Please type a number.");
-        let num2: f64 = num2.trim().parse().expect("Please type a number.");
-
         match input.trim() {
-            "add" => println!("Result: {:.2}", add(num1, num2)),
-            "subtract" => println!("Result: {:.2}", subtract(num1, num2)),
-            "multiply" => println!("Result: {:.2}", multiply(num1, num2)),
-            "divide" => match divide(num1, num2) {
-                Some(result) => println!("Result: {:.2}", result),
-                None => println!("Cannot divide by zero."),
+            "add" | "subtract" | "multiply" | "divide" | "percentage" | "power" => {
+                let num1 = read_number("Please type a first number:");
+                let num2 = read_number("Please type a second number:");
+                perform_double_input_operation(input.trim(), num1, num2);
             },
-            "percentage" => println!("Result: {:.2}", percentage(num1, num2)),
-            "cos" => println!("Result: {:.2}", cos(num1)),
-            "sin" => println!("Result: {:.2}", sin(num1)), 
-            "tan" => println!("Result: {:.2}", tan(num1)),
-            "power" => println!("Result: {:.2}", exponentiate(num1, num2)),
+
+            "cos" | "sin" | "tan" => {
+                let num = read_number("Enter the angle in degrees:");
+                perform_single_input_operation(input.trim(), num)
+            }
             _ => println!("Invalid operation!"),
         }
     }
